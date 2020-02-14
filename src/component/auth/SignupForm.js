@@ -17,6 +17,7 @@ class SignupForm extends Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSignup = this.handleSignup.bind(this)
         this.formUpdate = this.formUpdate.bind(this)
+        this.handleRepeatPasswordChange = this.handleRepeatPasswordChange.bind(this)
     }
 
     formUpdate(updateValue) {
@@ -26,7 +27,8 @@ class SignupForm extends Component {
             ...updateValue
         }
         formContent.validForm = formContent.username && formContent.password && formContent.password === formContent.repeatPassword 
-        console.log(formContent.validForm ? 'true' : 'false')
+
+        // console.log(formContent.validForm ? 'true' : 'false')
         this.setState(formContent)
     }
 
@@ -36,6 +38,10 @@ class SignupForm extends Component {
 
     handlePasswordChange(e) {
         this.formUpdate({password: e.target.value})
+    }
+
+    handleRepeatPasswordChange(e) {
+        this.formUpdate({repeatPassword: e.target.value})
     }
 
     handleSignup() {
@@ -57,8 +63,8 @@ class SignupForm extends Component {
                 <form id="signup-form">
                     <input className="input-auth" type="text" placeholder="Username" onChange={this.handleUsernameChange} />
                     <input className="input-auth" type="password" placeholder="Password" onChange={this.handlePasswordChange} />
-                    <input className="input-auth" type="password" placeholder="Repeat password" onChange={this.handlePasswordChange} />
-                    <h4 style={{visibility: this.state.validForm ? 'visible' : 'hidden'}}>Password Not Matching</h4>
+                    <input className="input-auth" type="password" placeholder="Repeat password" onChange={this.handleRepeatPasswordChange} />
+                    <h4 style={{visibility: this.state.password === this.state.repeatPassword ? 'hidden' : 'visible'}}>Password Not Matching</h4>
                     <button className="btn-primary" type="button" onClick={this.handleSignup} disabled={this.state.validForm ? '': 'disabled'}>Sign Up</button>
                 </form>
                 <h6>Have an aaccount? <Link to="/login">Log in</Link></h6>
