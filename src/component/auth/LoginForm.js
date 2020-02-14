@@ -51,8 +51,8 @@ class LoginForm extends Component {
                     <input className="input-auth" type="text" placeholder="Username" onChange={this.handleUsernameChange}/>
                     <input className="input-auth" type="password" placeholder="Password" onChange={this.handlePasswordChange} />
                     <button className="btn-primary" type="button" onClick={this.handleLogin} disabled={this.state.validForm ? '': 'disabled'}>Log in</button>
-                    <h6>New to Web Tweet? <Link to="/signup">Sign up Now</Link></h6>
                 </form>
+                <h6>New to Web Tweet? <Link to="/signup">Sign up Now</Link></h6>
             </div>
         );
     }

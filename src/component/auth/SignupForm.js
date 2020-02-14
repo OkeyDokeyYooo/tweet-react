@@ -16,6 +16,7 @@ class SignupForm extends Component {
         this.handleUsernameChange = this.handleUsernameChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSignup = this.handleSignup.bind(this)
+        this.formUpdate = this.formUpdate.bind(this)
     }
 
     formUpdate(updateValue) {
@@ -24,7 +25,8 @@ class SignupForm extends Component {
             ...prevState,
             ...updateValue
         }
-        formContent.validForm = formContent.username && formContent.password && formContent.password === formContent.repeatPassword
+        formContent.validForm = formContent.username && formContent.password && formContent.password === formContent.repeatPassword 
+        console.log(formContent.validForm ? 'true' : 'false')
         this.setState(formContent)
     }
 
@@ -56,6 +58,7 @@ class SignupForm extends Component {
                     <input className="input-auth" type="text" placeholder="Username" onChange={this.handleUsernameChange} />
                     <input className="input-auth" type="password" placeholder="Password" onChange={this.handlePasswordChange} />
                     <input className="input-auth" type="password" placeholder="Repeat password" onChange={this.handlePasswordChange} />
+                    <h4 style={{visibility: this.state.validForm ? 'visible' : 'hidden'}}>Password Not Matching</h4>
                     <button className="btn-primary" type="button" onClick={this.handleSignup} disabled={this.state.validForm ? '': 'disabled'}>Sign Up</button>
                 </form>
                 <h6>Have an aaccount? <Link to="/login">Log in</Link></h6>

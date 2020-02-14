@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import TweetList from './TweetList';
-import TweetPost from './TweetPost';
+import Nav from './Nav';
+import TweetList from './tweet/TweetList';
+import TweetPost from './tweet/TweetPost';
 import SideBar from './SideBar';
+
+import logo from '../img/logo.png'
+import avatar from '../img/sample-avatar.png'
 
 class Page extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            tweets: []
+            tweets: [],
+            token: ''
         };
-        this.handleNewPost = this.handleNewPost.bind(this)        
+        this.handleNewPost = this.handleNewPost.bind(this)   
+        this.handleLogout = this.handleLogout.bind(this)
+        this.handleTokenUpdate = this.handleTokenUpdate.bind(this)     
+    }
+
+    handleTokenUpdate(token) {
+        this.setState({
+            token: token
+        })
+    }
+
+    handleLogout() {
+        this.setState({
+            tokn: ''
+        })
     }
 
     handleNewPost(newPost) {
@@ -42,11 +61,14 @@ class Page extends Component {
 
     render() {
         return (
-            <div className="container">
-                <SideBar avatar={this.props.avatar}/>
-                <div className="col-3of5 bg-white">
-                    <TweetPost avatar={this.props.avatar} handleNewPost={this.handleNewPost} />
-                    <TweetList tweets={this.state.tweets} />
+            <div>
+                <Nav logo={logo} avatar={avatar} token={this.state.token} />
+                <div className="container">
+                    <SideBar avatar={avatar} handleTokenUpdate={this.handleTokenUpdate} handleLogout={this.hanleLogout} token={this.state.token}/>
+                    <div className="col-3of5 bg-white">
+                        {this.state.token && <TweetPost avatar={avatar} handleNewPost={this.handleNewPost} />}
+                        <TweetList tweets={this.state.tweets} />
+                    </div>
                 </div>
             </div>
         );
